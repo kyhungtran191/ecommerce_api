@@ -3,7 +3,7 @@ const PaymentType = require("../models/PaymentType");
 
 const createPaymentType = (paymentType) => {
   return new Promise(async (resolve, reject) => {
-    const { name } = paymentType;
+    const { name, type } = paymentType;
     try {
       const checkPayment = await PaymentType.findOne({
         $or: [{ name: name }, { type: type }],
@@ -17,8 +17,10 @@ const createPaymentType = (paymentType) => {
           statusMessage: "Error",
         });
       }
+
       const createdPayment = await PaymentType.create({
         name,
+        type
       });
       if (createdPayment) {
         resolve({
@@ -185,7 +187,7 @@ const getAllPaymentType = (params) => {
     try {
       const limit = params?.limit ? +params?.limit : 10;
       const search = params?.search ?? "";
-      const page = params?.page ?  +params.page :  1;
+      const page = params?.page ? +params.page : 1;
       const order = params?.order ?? "created desc";
       const query = {};
       if (search) {

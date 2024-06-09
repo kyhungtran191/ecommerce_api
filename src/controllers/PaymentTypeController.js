@@ -7,6 +7,7 @@ const createPaymentType = async (req, res) => {
     const requiredFields = validateRequiredInput(req.body, ["name"]);
     const { type } = req.body;
     if (requiredFields?.length) {
+      console.log(1)
       return res.status(CONFIG_MESSAGE_ERRORS.INVALID.status).json({
         status: "Error",
         typeError: CONFIG_MESSAGE_ERRORS.INVALID.type,
@@ -24,7 +25,9 @@ const createPaymentType = async (req, res) => {
         data: null,
       });
     }
+    console.log(req.body)
     const response = await PaymentTypeService.createPaymentType(req.body);
+
     const { data, status, typeError, message, statusMessage } = response;
     return res.status(status).json({
       typeError,

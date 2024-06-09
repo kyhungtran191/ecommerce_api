@@ -8,13 +8,14 @@ const { CONFIG_PERMISSIONS } = require("./configs");
 const initializeDB = async () => {
   try {
     // Kết nối đến cơ sở dữ liệu
+    mongoose.set('strictQuery', false);
     await mongoose
       .connect(`${process.env.MONGO_DB}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
       .then(async () => {
-       
+
         const defaultAdminRole = new Role({
           name: "Admin",
           permissions: [CONFIG_PERMISSIONS.ADMIN],
