@@ -179,6 +179,7 @@ const deleteUser = (id) => {
 };
 
 const deleteManyUser = (ids) => {
+  console.log(ids)
   return new Promise(async (resolve, reject) => {
     try {
       await User.deleteMany({ _id: ids });
@@ -200,7 +201,7 @@ const getAllUser = (params) => {
     try {
       const limit = params?.limit ? +params?.limit : 10;
       const search = params?.search ?? "";
-      const page = params?.page ?  +params.page :  1;
+      const page = params?.page ? +params.page : 1;
       const order = params?.order ?? "created desc";
       const query = {};
       const roleId = params?.roleId ?? "";
